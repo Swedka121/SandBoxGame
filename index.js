@@ -11,12 +11,11 @@ const TABLE2_TEXTURE = document.getElementById("TABLE2_t")
 let deleted = 0
 let EDIT_LAYER = 0
 
-CANVAS.width = 1920;
-CANVAS.height = 1800;
+CANVAS.width = 600;
+CANVAS.height = 600;
 
-const preLoadMap = await fetch("./map.json").then((res) => res.json()).then((data) => {return data})
+//const preLoadMap = await fetch("./map.json").then((res) => res.json()).then((data) => {return data})
 
-console.log(preLoadMap)
 
 let map_ = {
     width:1000,
@@ -29,11 +28,11 @@ let map_ = {
 }
 
 let scene = {
-    x: 0, y:0,
+    x: 2, y:1,
     width: 15, height:15,
     max_x:CANVAS.width,
     max_y:CANVAS.height,
-    scale: 15,
+    scale: 5,
     max_camera: 42,
     min_camera: -43,
 
@@ -51,19 +50,22 @@ function InitGame(map, scene) {
     scene.max_y = scene.height * map.slot_height / 2
 
 }
+
 InitGame(map_, scene)
+
 function InitMap(map) {
     let i = 0
     map.slots = []
     console.log(map)
     for(let y = map.min_y; y < map.max_y; y = y + map.slot_height) {
         for(let x = map.min_x; x < map.max_x; x = x + map.slot_width) {
-            console.log(x)
             
-            if (x === 0 && y === 0) {
+            if (x === 0 && y === 0 && 0 != map.slots[map.slots.length - 1].x) {
+                console.log({id:i, x: x, y: y, end_x: x + map.slot_width, end_y: y + map.slot_height, type: "full", layer2:"none"})
                 map.slots.push({id:i, x: x, y: y, end_x: x + map.slot_width, end_y: y + map.slot_height, type: "full", layer2:"none"})
+                i++
             } 
-            if (x === map.width / -2 || x + map.slot_width === map.width / 2 || y + map.slot_height === map.height / 2 || y === map.height / -2) {
+            if (x === map.width / -2  || x + map.slot_width === map.width / 2 - 10 || y + map.slot_height === map.height / 2 - 10 || y === map.height / -2) {
                 map.slots.push({id:i, x: x, y: y, end_x: x + map.slot_width, end_y: y + map.slot_height, type: "full", layer2:"none"})
             }
             else {
@@ -119,8 +121,13 @@ function RenderMap(map, scene) {
         
     })
 }
+if(localStorage.getItem("save") === null) {
+    InitMap(map_)
+} else {
+    console.log("log1")
+    map_ = JSON.parse(localStorage.getItem("save"))
+}
 
-map_ = preLoadMap
 
 CANVAS.addEventListener("click", (e) => {
     scene.colisionField.forEach((el) => {
@@ -154,12 +161,13 @@ CANVAS.addEventListener("click", (e) => {
 
 document.addEventListener("keydown", (e) => {
     console.log(e.code)
-    if (e.code === "ArrowUp" &&  scene.y > scene.min_camera) {
-        scene.y--
-    }
-    if (e.code === "ArrowDown" && scene.y < scene.max_camera) {
-        scene.y++
-    }
+    
+    //if (e.code === "ArrowUp" &&  scene.y > scene.min_camera) {
+    //    scene.y--
+    //}
+    //if (e.code === "ArrowDown" && scene.y < scene.max_camera) {
+    //    scene.y++
+    //}
     if (e.code === "ArrowRight" && scene.x < scene.max_camera) {
         scene.x++
     }
@@ -167,7 +175,7 @@ document.addEventListener("keydown", (e) => {
         scene.x--
     }
     if (e.code === "KeyS") {
-        console.log(JSON.stringify(map_))
+        localStorage.setItem("save",(JSON.stringify(map_)))
         alert("See consol")
     }
     if (e.code === "KeyN") {
@@ -177,6 +185,20 @@ document.addEventListener("keydown", (e) => {
         EDIT_LAYER++
         if (EDIT_LAYER > 1) {
             EDIT_LAYER = 0
+        }
+    }
+    switch (e.code) {
+        case "ArrowUp": {
+            if (scene.y > scene.min_camera) {
+                scene.y--
+            }
+            break;
+        }
+        case "ArrowDown": {
+            if (scene.y < scene.max_camera) {
+                scene.y++
+            }
+            break;
         }
     }
     
