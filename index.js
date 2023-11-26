@@ -53,6 +53,23 @@ function InitGame(map, scene) {
 
 InitGame(map_, scene)
 
+function DebugMap(map) {
+    let deleted = 0
+    let old_el = map.slots[0]
+    let i = 0
+    console.log("lllllll")
+    map.slots.forEach((el) => {
+        console.log(`old_pos: ${old_el.x}:${old_el.y} new_pos: ${el.x}:${el.y}`)
+        if (old_el.x === el.x && old_el.y === el.y) {
+            console.log(el = "looog")
+            deleted = map.slots.splice(i - 1, 1)
+        }
+        old_el = el
+        i++
+    })
+    console.log(`Deleted: ${deleted.length}`)
+}
+
 function InitMap(map) {
     let i = 0
     map.slots = []
@@ -63,7 +80,6 @@ function InitMap(map) {
             if (x === 0 && y === 0 && 0 != map.slots[map.slots.length - 1].x) {
                 console.log({id:i, x: x, y: y, end_x: x + map.slot_width, end_y: y + map.slot_height, type: "full", layer2:"none"})
                 map.slots.push({id:i, x: x, y: y, end_x: x + map.slot_width, end_y: y + map.slot_height, type: "full", layer2:"none"})
-                i++
             } 
             if (x === map.width / -2  || x + map.slot_width === map.width / 2 - 10 || y + map.slot_height === map.height / 2 - 10 || y === map.height / -2) {
                 map.slots.push({id:i, x: x, y: y, end_x: x + map.slot_width, end_y: y + map.slot_height, type: "full", layer2:"none"})
@@ -75,6 +91,7 @@ function InitMap(map) {
         }
     }
     map.slots = map.slots.filter((x, i) => map.slots.indexOf(x) === i);
+    DebugMap(map)
     console.log(`Load: ${i} of ${i}`)
 }
 
@@ -84,7 +101,6 @@ function RenderMap(map, scene) {
     let i_x = 0
     let i_y = 0 
     if (deleted === 0) {
-        console.log(deleted)
         scene.renderField.splice(scene.renderField.findIndex(e => e.x === 10 && e.y === 0)-1, scene.renderField.findIndex(e => e.x === 10 && e.y === 0)+1, )
         deleted++
     }
