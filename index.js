@@ -57,11 +57,9 @@ function DebugMap(map) {
     let deleted = 0
     let old_el = map.slots[0]
     let i = 0
-    console.log("lllllll")
     map.slots.forEach((el) => {
         console.log(`old_pos: ${old_el.x}:${old_el.y} new_pos: ${el.x}:${el.y}`)
         if (old_el.x === el.x && old_el.y === el.y) {
-            console.log(el = "looog")
             deleted = map.slots.splice(i - 1, 1)
         }
         old_el = el
