@@ -194,6 +194,7 @@ document.addEventListener("keydown", (e) => {
     }
     if (e.code === "KeyN") {
         InitMap(map_)
+        DebugMap(map_)
     }
     if (e.code === "KeyQ") {
         EDIT_LAYER++
