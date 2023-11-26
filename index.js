@@ -176,7 +176,7 @@ document.addEventListener("keydown", (e) => {
     }
     if (e.code === "KeyS") {
         localStorage.setItem("save",(JSON.stringify(map_)))
-        alert("See consol")
+        alert("Saved")
     }
     if (e.code === "KeyN") {
         InitMap(map_)
