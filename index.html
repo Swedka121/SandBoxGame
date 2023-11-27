@@ -7,12 +7,26 @@
     <title>Game_1.5</title>
 </head>
 <body>
-    <img src="garss_texture.jpg" id="GRASS_t" style="display: none;">
+    <img src="grass_texture.png" id="GRASS_t" style="display: none;">
     <img src="wall_texture.png" id="WALL_t" style="display: none;">
     <img src="table1_texture.png" id="TABLE1_t" style="display: none;">
     <img src="table2_texture.png" id="TABLE2_t" style="display: none;">
     <img src="floor_wood_texture.png" id="FLOOR_WOOD_t" style="display: none;">
     <canvas id="main"></canvas>
+    <div class="buttons">
+        <button class="act_modal_btn" id="open_MODAL1">Controlls</button> 
+    </div>
+    <div class="modal" id="MODAL1">
+        <div class="close"></div>
+        <div class="modal__content">
+            <h1>Controlls</h1>
+            <p>Q - change layer to edit</p>
+            <p>S - save map</p>
+            <p>N - clear map</p>
+            <p>Arrows - move</p>
+        </div>
+    </div>
 </body>
+<script src="uiController.js" type="module"></script>
 <script src="index.js" type="module"></script>
 </html>

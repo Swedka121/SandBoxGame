@@ -32,7 +32,7 @@ let scene = {
     width: 30, height:20,
     max_x:CANVAS.width,
     max_y:CANVAS.height,
-    scale: 5.2,
+    scale: 5.4,
     max_camera: 30,
     min_camera: -30,
 
