@@ -66,9 +66,15 @@ body {
 }
 @media screen and (max-width: 800px) {
     .buttons {
+        top:0;
         left: 0%;
-        width:100%;
+        width:100vw;
         height:5%;
+        background-color:rgb(34, 34, 34);
+        border-radius: 50px,50px,50px,50px;
+    }
+    .act_modal_btn {
+        color:white;
     }
     .modal__content {
         left:15%;
