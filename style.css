@@ -64,3 +64,14 @@ body {
 .active {
     display: block;
 }
+@media screen and (max-width: 426px) {
+    .buttons {
+        left: 0%;
+        width:100%;
+        height:5%;
+    }
+    .modal__content {
+        left:15%;
+        width: 70%;
+    }
+}
