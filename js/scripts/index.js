@@ -4,7 +4,6 @@ const ctx = CANVAS.getContext("2d")
 const GRASS_TEXTURE = document.getElementById("GRASS_t")
 const WALL_TEXTURE = document.getElementById("WALL_t")
 const FLOOR_WOOD_TEXTURE = document.getElementById("FLOOR_WOOD_t")
-
 const TABLE1_TEXTURE = document.getElementById("TABLE1_t")
 const TABLE2_TEXTURE = document.getElementById("TABLE2_t")
 
@@ -13,9 +12,6 @@ let EDIT_LAYER = 0
 
 CANVAS.width = window.innerWidth -30;
 CANVAS.height = window.innerHeight - 1;
-
-//const preLoadMap = await fetch("./map.json").then((res) => res.json()).then((data) => {return data})
-
 
 let map_ = {
     width:1000,
