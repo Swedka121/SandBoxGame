@@ -11,8 +11,8 @@ const TABLE2_TEXTURE = document.getElementById("TABLE2_t")
 let deleted = 0
 let EDIT_LAYER = 0
 
-CANVAS.width = 600;
-CANVAS.height = 600;
+CANVAS.width = window.innerWidth -30;
+CANVAS.height = window.innerHeight - 1;
 
 //const preLoadMap = await fetch("./map.json").then((res) => res.json()).then((data) => {return data})
 
@@ -29,12 +29,12 @@ let map_ = {
 
 let scene = {
     x: 2, y:1,
-    width: 15, height:15,
+    width: 30, height:20,
     max_x:CANVAS.width,
     max_y:CANVAS.height,
-    scale: 5,
-    max_camera: 42,
-    min_camera: -43,
+    scale: 5.2,
+    max_camera: 30,
+    min_camera: -30,
 
 }
 
@@ -46,8 +46,8 @@ function InitGame(map, scene) {
 
     scene.min_x = scene.width * map.slot_width / -2 
     scene.min_y = scene.height * map.slot_height / -2 
-    scene.max_x = scene.width * map.slot_width / 2 
-    scene.max_y = scene.height * map.slot_height / 2
+    scene.max_x = Math.floor(scene.width / 2 * map.slot_width)
+    scene.max_y = scene.height / 2 * map.slot_height 
 
 }
 
@@ -111,7 +111,7 @@ function RenderMap(map, scene) {
         if (el.type === "floor_wood") {
             ctx.drawImage(FLOOR_WOOD_TEXTURE, i_x, i_y, map.slot_width * scene.scale, map.slot_height * scene.scale)
         } 
-        if (el.type === "full") {
+        if (el.type === "full") { 
             ctx.drawImage(WALL_TEXTURE, i_x, i_y, map.slot_width * scene.scale, map.slot_height * scene.scale)
         }
         //draw layer 2
@@ -128,7 +128,7 @@ function RenderMap(map, scene) {
         scene.colisionField.push({x: i_x, y: i_y, end_x: i_x + map.slot_width * scene.scale, end_y: i_y + map.slot_height * scene.scale, id: el.id})
         
         i_x = i_x + (map.slot_width * scene.scale)
-        if (i_x / scene.scale > 140) {
+        if (i_x / scene.scale > Math.floor(140 * (scene.width / 15))) {
             i_y = i_y + (map.slot_height * scene.scale)
             i_x = 0
         }
