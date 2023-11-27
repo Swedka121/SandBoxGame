@@ -64,7 +64,7 @@ body {
 .active {
     display: block;
 }
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 800px) {
     .buttons {
         left: 0%;
         width:100%;
