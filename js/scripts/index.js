@@ -66,6 +66,7 @@ async function AddBlockToInv(el, textures, layer) {
             scene.type = block.name
             console.log(block.name)
         })
+        console.log(block_img)
         block_img.classList.add("inventory__items_group_item")
         if (layer === 1) {
             textures.layer1.push({type: block.name, texture: block_img})

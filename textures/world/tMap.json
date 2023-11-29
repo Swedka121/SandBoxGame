@@ -13,7 +13,7 @@
                 },
                 {
                     "name":"none",
-                    "texture":"./textures/world/layer1/base/grass_texture.png"
+                    "texture":"../textures/world/layer1/base/grass_texture.png"
                 }
             ]
         },
