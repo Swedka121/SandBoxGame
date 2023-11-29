@@ -80,7 +80,7 @@ async function AddBlockToInv(el, textures, layer) {
     Inventory_items.appendChild(blocks_div)
 }
 async function InitTextures(textures) {
-    const json = await fetch("../textures/world/tMap.json").then(res => res.json()).then(data => {return data})
+    const json = await fetch("textures/world/tMap.json").then(res => res.json()).then(data => {return data})
     console.log(json)
     json.layer_1.forEach(el => {AddBlockToInv(el, textures, 1)})
     json.layer_2.forEach(el => {AddBlockToInv(el, textures, 2)})
