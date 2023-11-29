@@ -1,11 +1,8 @@
 const CANVAS = document.getElementById("main")
 const ctx = CANVAS.getContext("2d")
 
-const GRASS_TEXTURE = document.getElementById("GRASS_t")
-const WALL_TEXTURE = document.getElementById("WALL_t")
-const FLOOR_WOOD_TEXTURE = document.getElementById("FLOOR_WOOD_t")
-const TABLE1_TEXTURE = document.getElementById("TABLE1_t")
-const TABLE2_TEXTURE = document.getElementById("TABLE2_t")
+const Inventory_buttons = document.getElementById("inventory_btn")
+const Inventory_items = document.getElementById("inventory_item")
 
 let deleted = 0
 let EDIT_LAYER = 0
@@ -31,7 +28,12 @@ let scene = {
     scale: 5.4,
     max_camera: 30,
     min_camera: -30,
+    type: "none"
+}
 
+let Textures = {
+    layer1: [],
+    layer2: []
 }
 
 function InitGame(map, scene) {
@@ -47,6 +49,43 @@ function InitGame(map, scene) {
 
 }
 
+
+
+async function AddBlockToInv(el, textures, layer) {
+    let blocks_div = document.createElement("div")
+    blocks_div.id = el.name
+    let btn_TA = document.createElement("a")
+    btn_TA.textContent = el.name
+    btn_TA.href = `#${el.name}`
+    btn_TA.classList.add("inventory__buttons_btn")
+    Inventory_buttons.appendChild(btn_TA)
+    el.blocks.forEach(block => {
+        let block_img = new Image(64, 64)
+        block_img.src = block.texture
+        block_img.addEventListener("click", (e) => {
+            scene.type = block.name
+            console.log(block.name)
+        })
+        block_img.classList.add("inventory__items_group_item")
+        if (layer === 1) {
+            textures.layer1.push({type: block.name, texture: block_img})
+        } else {
+            textures.layer2.push({type: block.name, texture: block_img})
+        }
+        
+        blocks_div.appendChild(block_img)
+    })
+    blocks_div.classList.add("inventory__items_group")
+    Inventory_items.appendChild(blocks_div)
+}
+async function InitTextures(textures) {
+    const json = await fetch("../textures/world/tMap.json").then(res => res.json()).then(data => {return data})
+    console.log(json)
+    json.layer_1.forEach(el => {AddBlockToInv(el, textures, 1)})
+    json.layer_2.forEach(el => {AddBlockToInv(el, textures, 2)})
+}
+
+InitTextures(Textures)
 InitGame(map_, scene)
 
 function DebugMap(map) {
@@ -101,25 +140,17 @@ function RenderMap(map, scene) {
     scene.renderField.forEach((el) => {
         
         //draw types
-        if (el.type === "none") {
-            ctx.drawImage(GRASS_TEXTURE, i_x, i_y, map.slot_width * scene.scale, map.slot_height * scene.scale)
+        let drawTexture = Textures.layer1.find(e => e.type === el.type)
+        if (drawTexture != undefined) {
+            ctx.drawImage(drawTexture.texture, i_x, i_y, map.slot_width * scene.scale, map.slot_height * scene.scale)
         }
-        if (el.type === "floor_wood") {
-            ctx.drawImage(FLOOR_WOOD_TEXTURE, i_x, i_y, map.slot_width * scene.scale, map.slot_height * scene.scale)
-        } 
-        if (el.type === "full") { 
-            ctx.drawImage(WALL_TEXTURE, i_x, i_y, map.slot_width * scene.scale, map.slot_height * scene.scale)
-        }
+        
         //draw layer 2
-        if (el.layer2 === "none") {
-
+        let drawTexture2 = Textures.layer2.find(e => e.type === el.layer2)
+        if (drawTexture2 != undefined) {
+            ctx.drawImage(drawTexture2.texture, i_x, i_y, map.slot_width * scene.scale, map.slot_height * scene.scale)
         }
-        if (el.layer2 === "table1") {
-            ctx.drawImage(TABLE1_TEXTURE, i_x, i_y, map.slot_width * scene.scale, map.slot_height * scene.scale)
-        }
-        if (el.layer2 === "table2") {
-            ctx.drawImage(TABLE2_TEXTURE, i_x, i_y, map.slot_width * scene.scale, map.slot_height * scene.scale)
-        }
+        
         
         scene.colisionField.push({x: i_x, y: i_y, end_x: i_x + map.slot_width * scene.scale, end_y: i_y + map.slot_height * scene.scale, id: el.id})
         
@@ -146,24 +177,26 @@ CANVAS.addEventListener("click", (e) => {
         if(e.offsetX < el.end_x && e.offsetX > el.x && e.offsetY > el.y && e.offsetY < el.end_y) { {
             const index = map_.slots.findIndex(el1 => el1.id === el.id)
             if (EDIT_LAYER === 0) {
-                if(map_.slots[index].type === "none") {
-                    map_.slots[index].type = "full"
-                }else if(map_.slots[index].type === "full") {
-                    map_.slots[index].type = "floor_wood"
-                } else {
-                    map_.slots[index].type = "none"
+                console.log(Textures.layer2)
+                let check = Textures.layer2.find(el => el.type === scene.type)
+                console.log(check)
+                if (check === undefined) {
+                    if (map_.slots[index].type === "none") {
+                        map_.slots[index].type = scene.type
+                    } else {
+                        map_.slots[index].type = "none"
+                    }
                 }
-                console.log(map_.slots[index].type)
             }
             if (EDIT_LAYER === 1) {
-                if(map_.slots[index].layer2 === "none") {
-                    map_.slots[index].layer2 = "table1"
-                }else if (map_.slots[index].layer2 === "table1") {
-                    map_.slots[index].layer2 = "table2"
-                } else if (map_.slots[index].layer2 === "table2") {
-                    map_.slots[index].layer2 = "none"
+                let check = Textures.layer1.find(el => el.type === scene.type)
+                if (check === null) {
+                    if (map_.slots[index].layer2 === "none") {
+                        map_.slots[index].layer2 = scene.type
+                    } else {
+                        map_.slots[index].layer2 = "none"
+                    }
                 }
-                console.log(map_.slots[index].type)
             }
         }
         }})

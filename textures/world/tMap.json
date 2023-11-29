@@ -1,0 +1,73 @@
+{
+    "layer_1": [
+        {
+            "name": "base",
+            "blocks": [
+                {
+                    "name":"full",
+                    "texture":"./textures/world/layer1/base/wall_texture.png"
+                },
+                {
+                    "name":"floor",
+                    "texture":"./textures/world/layer1/base/floor_texture.png"
+                },
+                {
+                    "name":"none",
+                    "texture":"./textures/world/layer1/base/grass_texture.png"
+                }
+            ]
+        },
+        {
+            "name": "colored",
+            "blocks": [
+                {
+                    "name":"purple_color",
+                    "texture":"./textures/world/layer1/colored/color1_texture.png"
+                },
+                {
+                    "name":"lightblue_color",
+                    "texture":"./textures/world/layer1/colored/color2_texture.png"
+                },
+                {
+                    "name":"yellow_color",
+                    "texture":"./textures/world/layer1/colored/color3_texture.png"
+                },
+                {
+                    "name":"green_color",
+                    "texture":"./textures/world/layer1/colored/color4_texture.png"
+                },
+                {
+                    "name":"red_color",
+                    "texture":"./textures/world/layer1/colored/color5_texture.png"
+                },
+                {
+                    "name":"blue_color",
+                    "texture":"./textures/world/layer1/colored/color6_texture.png"
+                },
+                {
+                    "name":"white_color",
+                    "texture":"./textures/world/layer1/colored/color7_texture.png"
+                },
+                {
+                    "name":"black_color",
+                    "texture":"./textures/world/layer1/colored/color8_texture.png"
+                },
+                {
+                    "name":"orenge_color",
+                    "texture":"./textures/world/layer1/colored/color9_texture.png"
+                }
+            ]
+        }
+    ],
+    "layer_2": [
+        {
+            "name": "furniture",
+            "blocks": [
+                {
+                    "name": "table1",
+                    "texture":"./textures/world/layer2/furniture/table1_texture.png"
+                }
+            ]
+        }
+    ]
+}

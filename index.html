@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Game_1.6</title>
+    <title>Game_1.7</title>
 </head>
 <body>
-    <img src="textures/world/layer1/base/grass_texture.png" id="GRASS_t" style="display: none;">
-    <img src="textures/world/layer1/base/wall_texture.png" id="WALL_t" style="display: none;">
-    <img src="textures/world/layer2/furniture/table1_texture.png" id="TABLE1_t" style="display: none;">
-    <img src="textures/world/layer2/furniture/table2_texture.png" id="TABLE2_t" style="display: none;">
-    <img src="textures/world/layer1/base/floor_wood_texture.png" id="FLOOR_WOOD_t" style="display: none;">
     <canvas id="main"></canvas>
     <div class="buttons">
         <button class="act_modal_btn" id="open_MODAL1">Controlls</button> 
+        <button class="act_modal_btn" id="open_MODAL2">Inventory</button> 
     </div>
     <div class="modal" id="MODAL1">
         <div class="close"></div>
@@ -24,6 +20,15 @@
             <p>S - save map</p>
             <p>N - clear map</p>
             <p>Arrows - move</p>
+        </div>
+    </div>
+    <div class="modal" id="MODAL2">
+        <div class="close"></div>
+        <div class="modal__content" style="height: 90%; top: 5%;">
+            <div class="inventory">
+                <div id="inventory_btn" class="inventory__buttons"></div>
+                <div id="inventory_item" class="inventory__items"></div>
+            </div>
         </div>
     </div>
 </body>
