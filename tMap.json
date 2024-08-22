@@ -55,6 +55,10 @@
                 {
                     "name":"orenge_color",
                     "texture":"./colored_color9_texture.png"
+                },
+                {
+                    "name":"uiuiui",
+                    "texture":"./colored_color8_texture.png"
                 }
             ]
         }
